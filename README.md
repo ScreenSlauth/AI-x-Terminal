@@ -1,12 +1,22 @@
 # CLI AI Agent
 
-A command-line interface (CLI) agent that uses Groq's API to interact with AI models.
+A command-line interface (CLI) agent that uses Groq's API to interact with AI models and provides various tools for enhanced functionality.
+
+## Features
+
+- Interactive AI chat with multiple language models
+- Text-to-speech functionality (with adjustable settings)
+- File operations (read/write)
+- Web search capabilities
+- Math and string manipulation tools
+- Date formatting
+- HTTP request handling
 
 ## Setup
 
 1. Install dependencies:
    ```
-   npm install
+   npm install dotenv node-fetch say
    ```
 
 2. Create a `.env` file with the following variables:
@@ -16,10 +26,12 @@ A command-line interface (CLI) agent that uses Groq's API to interact with AI mo
    GROQ_MODEL=llama3-70b-8192
    ```
 
-3. Test your connection:
-   ```
-   node testConnection.js
-   ```
+3. Make sure you have the following files:
+   - `agent.js` - Main interface
+   - `tools.js` - Tool definitions
+   - `config.js` - Configuration
+   - `logger.js` - Logging utility
+   - `plugin-loader.js` - Plugin system
 
 ## Usage
 
@@ -35,7 +47,10 @@ node agent.js
 - `listTools`: Show available tools
 - `listModels`: Show available AI models
 - `voice on/off`: Enable or disable voice output
-- `voice mode <text|voice|both>`: Set output mode (text, voice, or both)
+- `voice male`: Use male voice (Windows)
+- `voice female`: Use female voice (Windows)
+- `voice use <name>`: Use specific voice
+- `voice mode <text|voice|both>`: Set output mode
 - `voice speed <0.5-2.0>`: Set voice speed
 - `voice info`: Show current voice settings
 - `help`: Show help
@@ -71,7 +86,9 @@ node agent.js
 - `speak`: Converts text to speech (usage: text, speed, voice)
 - `getVoices`: Lists available system voices
 
-To use a tool, respond in this JSON format:
+### Using Tools
+
+To use a tool, provide input in JSON format:
 ```
 { "tool": "toolName", "args": [arg1, arg2, ...] }
 ```
@@ -88,11 +105,19 @@ Examples:
 { "tool": "speak", "args": ["Hello world", 1.0, null] }
 ```
 
-## Files
+## Available Models
 
-- `agent.js`: Main agent code
-- `config.js`: Configuration and environment variables
-- `tools.js`: Available tools
-- `logger.js`: Logging utility
-- `memory.json`: History of interactions
-- `testConnection.js`: Verify API connectivity
+This agent supports various Groq models, including:
+- `llama3-70b-8192`
+- `llama3-8b-8192`
+- `llama-3.1-8b-instant`
+- `llama-3.3-70b-versatile`
+- `gemma2-9b-it`
+- `compound-beta`
+- `compound-beta-mini`
+- `mistral-saba-24b`
+- `qwen-qwq-32b`
+
+## Memory
+
+The agent stores interaction history in a `memory.json` file to maintain context between sessions.
